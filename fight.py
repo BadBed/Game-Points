@@ -6,6 +6,7 @@ class Fight(object):
     def __init__(self):
         self.points = []
         self.enemies = []
+        self.skills = []
         self.field_objects = []
         self.player = None
         self.screen = None
