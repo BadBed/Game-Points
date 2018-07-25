@@ -15,3 +15,6 @@ class FieldObject(fight.FightObject):
     def move(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
+
+    def get_form(self):
+        pass

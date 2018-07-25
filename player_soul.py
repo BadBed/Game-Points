@@ -11,21 +11,15 @@ FLY = "Player fly condition"
 
 class PlayerSoul(field.FieldObject):
     RADIUS = 12
-    SPEED = 6
+    SPEED = 300
     CONDITIONS = [STAY, FLY]
-    FORM = collision.Circle(RADIUS)
 
     SMALL_DRAW_RADIUS = 8
     SECOND_COLOR = COLOR_WHITE
 
     def __init__(self, point):
         super().__init__()
-        self.point = point
-        self.x = point.x
-        self.y = point.y
-        self.element = point.element
-        self.q = STAY
-        self.form = self.FORM
+        self.catch_point(point)
 
     def command_move_to_point(self, point):
         if self.q == STAY and self.point != point:
@@ -44,7 +38,7 @@ class PlayerSoul(field.FieldObject):
                        (math.ceil(self.x), math.ceil(self.y)),
                        self.RADIUS)
         pg.draw.circle(screen,
-                       COLOR_WHITE,
+                       self.SECOND_COLOR,
                        (math.ceil(self.x), math.ceil(self.y)),
                         self.SMALL_DRAW_RADIUS)
 
@@ -55,13 +49,16 @@ class PlayerSoul(field.FieldObject):
 
     def try_catch_point(self, fight):
         for p in fight.points:
-            if collision.is_collide(self, p):
+            if p != self.point and collision.is_collide(self.get_form(), p.get_form()):
                 self.catch_point(p)
 
     def catch_point(self, p):
         self.x = p.x
         self.y = p.y
         self.vx = self.vy = 0
-        self.point = p.index
+        self.point = p
         self.element = p.element
         self.q = STAY
+
+    def get_form(self):
+        return collision.Circle(self.x, self.y, self.RADIUS)

@@ -1,14 +1,14 @@
 import pygame as pg
 from params import *
 
-
 class Fight(object):
     def __init__(self):
         self.points = []
         self.enemies = []
         self.skills = []
-        self.field_objects = []
-        self.player = None
+        self.other_objects = []
+        self.player_soul = None
+        self.player_intellect = None
         self.screen = None
 
     def children(self):
@@ -16,13 +16,15 @@ class Fight(object):
             yield p
         for e in self.enemies:
             yield e
-        for o in self.field_objects:
+        for o in self.other_objects:
             yield o
-        yield self.player
+        yield self.player_soul
+        yield self.player_intellect
 
     def run(self):
+        clock = pg.time.Clock()
         while True:
-            pg.timer.tick(FPS)
+            clock.tick(FPS)
 
             for e in pg.event.get():
                 self.event(e)
