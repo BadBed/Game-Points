@@ -1,6 +1,7 @@
 import pygame as pg
 from params import *
 
+
 class Fight(object):
     def __init__(self):
         self.points = []
@@ -9,6 +10,7 @@ class Fight(object):
         self.other_objects = []
         self.player_soul = None
         self.player_intellect = None
+
         self.screen = None
 
     def children(self):
@@ -35,27 +37,27 @@ class Fight(object):
     def draw(self, screen):
         pg.draw.rect(screen, COLOR_BLACK, (0, 0, SCREEN_SIZE[0], SCREEN_SIZE[1]))
         for c in self.children():
-            c.draw(self, screen)
+            c.draw(screen)
         pg.display.update()
 
     def update(self, dt):
         for c in self.children():
-            c.update(self, dt)
+            c.update(dt)
 
     def event(self, e):
         for c in self.children():
-            c.event(self, e)
+            c.event(e)
 
 
 class FightObject(object):
-    def __init__(self):
+    def __init__(self, fight):
+        self.fight = fight
+
+    def update(self, dt):
         pass
 
-    def update(self, fight, dt):
+    def draw(self, screen):
         pass
 
-    def draw(self, fight, screen):
-        pass
-
-    def event(self, fight, event):
+    def event(self, event):
         pass
