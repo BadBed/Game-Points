@@ -8,6 +8,7 @@ class Fight(object):
         self.enemies = []
         self.skills = []
         self.other_objects = []
+        self.combos = []
         self.player_soul = None
         self.player_intellect = None
 
@@ -38,6 +39,7 @@ class Fight(object):
         pg.draw.rect(screen, COLOR_BLACK, (0, 0, SCREEN_SIZE[0], SCREEN_SIZE[1]))
         for c in self.children():
             c.draw(screen)
+        pg.draw.rect(screen, COLOR_WHITE, pg.Rect(*FIELD_BEGIN, *FIELD_SIZE), 5)
         pg.display.update()
 
     def update(self, dt):
@@ -47,6 +49,11 @@ class Fight(object):
     def event(self, e):
         for c in self.children():
             c.event(e)
+
+    def get_enemy_pos(self, e):
+        i = self.enemies.index(e)
+        return (ENEMY_DRAW_POSITION_X + ENEMY_DRAW_POSITION_DX*i,
+                ENEMY_DRAW_POSITION_Y)
 
 
 class FightObject(object):

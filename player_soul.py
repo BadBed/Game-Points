@@ -61,5 +61,8 @@ class PlayerSoul(field.FieldObject):
         self.element = p.element
         self.q = PlayerSoul.STAY
 
+        for combo in self.fight.combos:
+            combo.element_activated(self.element)
+
     def get_form(self):
         return collision.Circle(self.x, self.y, self.RADIUS)

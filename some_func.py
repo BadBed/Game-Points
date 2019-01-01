@@ -6,7 +6,7 @@ def color_mix(c1, c2, alpha=0.5):
         raise Exception("uncorrect arguments for color_mix: alpha = " + str(alpha))
 
     beta = 1.0 - alpha
-    out = (0, 0, 0)
+    out = [0, 0, 0]
     for i in range(3):
         out[i] = alpha * c1[i] + beta * c2[i]
     return out
